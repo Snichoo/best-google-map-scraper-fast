@@ -1,5 +1,6 @@
 fastapi
-uvicorn[standard]
-pandas
+uvicorn
 playwright
+pandas
+pydantic
 python-dotenv
