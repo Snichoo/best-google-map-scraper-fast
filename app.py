@@ -128,7 +128,7 @@ def main(business_type, location, total):
                                 last_listing = page.locator(f'a[href*="{last_place_id}"]').first
                                 last_listing.click()
                                 # Wait for the details panel to load
-                                page.wait_for_selector('h1.DUwDvf.lfPIob', timeout=5000)
+                                page.wait_for_selector('h1.DUwDvf.lfPIob', timeout=60000)
                                 page.wait_for_timeout(1000)
                                 # Close the details panel
                                 page.keyboard.press("Escape")
