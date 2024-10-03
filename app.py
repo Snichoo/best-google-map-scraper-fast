@@ -55,7 +55,7 @@ def main(business_type, location, total):
             headless=True,
             args=['--no-sandbox', '--disable-dev-shm-usage']
         )
-        page = browser.new_page()
+        page = browser.new_page(user_agent='Your User Agent String')
 
         print("Navigating to Google Maps...")
         page.goto("https://www.google.com/maps", timeout=60000)
