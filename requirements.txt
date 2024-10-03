@@ -1,6 +1,5 @@
-fastapi
-uvicorn
 playwright
 pandas
-pydantic
+fastapi
+uvicorn[standard]
 python-dotenv
