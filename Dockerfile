@@ -1,39 +1,23 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+# Use the official Playwright Docker image with Python support
+FROM mcr.microsoft.com/playwright/python:v1.38.0-focal
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    libnss3 \
-    libatk-bridge2.0-0 \
-    libdrm2 \
-    libxkbcommon0 \
-    libxcb-dri3-0 \
-    libxcomposite1 \
-    libxrandr2 \
-    libgbm1 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libgtk-3-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy the requirements file into the container
+# Copy the requirements.txt first to leverage Docker's caching mechanism
 COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright browsers
-RUN playwright install --with-deps chromium
-
-# Copy the rest of the working directory contents into the container at /app
+# Copy the rest of your application code to the container
 COPY . .
 
-# Expose the port FastAPI is running on
-EXPOSE 8000
+# Expose the port that Render.com expects applications to listen on
+EXPOSE 10000
 
-# Run the application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Set environment variables if needed (optional)
+# ENV API_KEY=your_api_key_here
 
+# Command to run the FastAPI application using Uvicorn
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "10000"]
